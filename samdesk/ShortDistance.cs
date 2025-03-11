@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace SamDesk
 {
@@ -15,5 +16,48 @@ namespace SamDesk
             }
             return res;
         }
+        public int TaskDay2(List<List<int>> reports)
+        {
+            int res = 0;
+            foreach (List<int> list in reports)
+            {
+                int direction = 0;
+                for (int i=1; i<list.Count; i++)
+                {
+                    if (list[i - 1] == list[i]) {
+                        res -= 1;
+                        break;
+                    }
+                    if (list[i - 1] > list[i])
+                    {
+                        if ((list[i - 1] - list[i]) <= 3 && direction >= 0)
+                        {
+                            if (direction == 0) { direction = 1; }
+                        }
+                        else
+                        {
+                            res -= 1;
+                            break;
+                        }
+                    }
+                    else
+                    if (list[i - 1] < list[i])
+                    {
+                        if ((list[i] - list[i - 1]) <= 3 && direction <= 0)
+                        {
+                            if (direction == 0) { direction = -1; }
+                        }
+                        else
+                        {
+                            res -= 1;
+                            break;
+                        }
+                    }
+                }
+                res += 1;
+            }
+            return res;
+        }
+
     }
 }
